@@ -1,8 +1,18 @@
-import {z} from 'zod';
+import { z } from "zod";
 
-const createUserSchema = {
-    name: z.string().min(3, "O nome deve ter no mínimo 3 caracteres"),
-    email: z.string().email("Formato de e-mail inválido")
-}
+const createUserSchema = z.object({
+  name: z.string().min(3),
+  email: z.string().email(),
+});
+
+const updateUserSchema = z.object({
+  name: z.string().min(3).optional(),
+  email: z.string().email().optional(),
+});
+
+export const userIdParamSchema = z.object({
+  id: z.string().uuid("O ID fornecido não é um UUID válido."),
+});
 
 export type CreateUserDTO = z.infer<typeof createUserSchema>;
+export type UpdateUserDTO = z.infer<typeof updateUserSchema>;
