@@ -1,22 +1,22 @@
 // src/routes/userRoutes.ts
 import { Router } from "express";
-import userController from "../controllers/userController.js";
+import UserController from "../controllers/userController.js";
 
 const router = Router();
 
 // Create a new User
-router.post("/", userController.create)
+router.post("/", UserController.create)
 
 // Update an User
-router.put("/:id", userController.update)
+router.put("/:id", UserController.update)
 
 // Find a User by his email
-router.post("/login", userController.findByEmail)
+router.post("/login", UserController.findByEmail)
 
 // Find a specific User
-router.get("/:id", userController.findById)
+router.get("/:id", UserController.findById)
 
 // Find a specific User tickets
-router.get("/:id/tickets", userController.findUserTickets)
+router.get("/:id/tickets", UserController.findUserTickets)
 
 export default router;
