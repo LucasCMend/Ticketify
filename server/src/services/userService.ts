@@ -15,7 +15,7 @@ class UserService {
   }
 
   async update(data: UpdateUserDTO, id: string) {
-    const user = await userRepository.findByID(id);
+    const user = await userRepository.findById(id);
 
     if (!user) {
       throw new AppError("Usuário não encontrado.", 404);
@@ -58,7 +58,7 @@ class UserService {
   }
 
   async findUserTickets(id: string) {
-    const user = this.findByid(id);
+    const user = this.findById(id);
 
     const userAndTickets = await userRepository.findUserTickets(id);
     return userAndTickets;
