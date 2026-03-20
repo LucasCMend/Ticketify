@@ -10,6 +10,9 @@ router.post("/", UserController.create)
 // Update an User
 router.put("/:id", UserController.update)
 
+// Delete an User
+router.delete("/:id", UserController.delete)
+
 // Find a User by his email
 router.post("/login", UserController.findByEmail)
 

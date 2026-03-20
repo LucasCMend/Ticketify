@@ -15,6 +15,11 @@ class UserRepository {
     return updatedUser;
   }
 
+  async delete(id: string) {
+    const user = await prisma.user.delete({ where: { id } });
+    return user;
+  }
+
   async findByEmail(email: string) {
     const user = await prisma.user.findUnique({ where: { email } });
     return user;

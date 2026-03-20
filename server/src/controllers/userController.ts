@@ -5,27 +5,22 @@ import type { CreateUserDTO, UpdateUserDTO } from "../DTOs/userDTO.js";
 
 class UserController {
   async create(req: Request, res: Response) {
-    try {
-      const data: CreateUserDTO = req.body;
-      const user = await userService.create(data);
-      console.log("Usuário criado com sucesso");
-      return res.status(201).json(user);
-    } catch (error) {
-      if (error instanceof AppError) {
-        res.status(error.statusCode).json({ error: error.message });
-        return;
-      }
-
-      console.error(error);
-      res.status(500).json({ error: "Erro interno do servidor." });
-      return;
-    }
+    const data: CreateUserDTO = req.body;
+    const user = await userService.create(data);
+    console.log("Usuário criado com sucesso");
+    return res.status(201).json(user);
   }
 
   async update(req: Request, res: Response) {
     const { id } = req.params;
     const data: UpdateUserDTO = req.body;
     const user = await userService.update(data, id as string);
+    return res.status(200).json(user);
+  }
+
+  async delete(req: Request, res: Response) {
+    const {id} = req.params
+    const user = await userService.delete(id as string)
     return res.status(200).json(user);
   }
 

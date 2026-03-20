@@ -39,6 +39,17 @@ class UserService {
     return updatedUser;
   }
 
+  async delete(id: string) {
+    const userExists = await this.findById(id);
+
+    if (!userExists) {
+      throw new AppError("Usuário não existe", 404);
+    }
+
+    const deletedUser = await userRepository.delete(id);
+    return deletedUser;
+  }
+
   async findByEmail(email: string) {
     const user = await userRepository.findByEmail(email);
 
