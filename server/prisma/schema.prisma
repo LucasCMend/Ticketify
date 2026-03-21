@@ -21,7 +21,7 @@ model User {
 model Event {
   id               String   @id @default(uuid())
   name             String
-  description      String?
+  description      String
   date             DateTime
   totalTickets     Int
   availableTickets Int
