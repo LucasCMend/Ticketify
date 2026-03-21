@@ -1,10 +1,10 @@
 import type { Prisma } from "@prisma/client";
 import { AppError } from "../errors/AppError.js";
 import eventRepository from "../repositories/eventRepository.js";
-import { only } from "node:test";
+import type { CreateEventDTO, UpdateEventDTO } from "../DTOs/eventDTO.js";
 
 class EventService {
-  async create(data: Prisma.EventCreateInput) {
+  async create(data: CreateEventDTO) {
     const eventDate = new Date(data.date);
 
     if (eventDate < new Date()) {
@@ -18,8 +18,9 @@ class EventService {
     return await eventRepository.create(eventData);
   }
 
-  async update(id: string, data: Prisma.EventUpdateInput) {
+  async update(id: string, data: UpdateEventDTO) {
     const event = await this.findById(id);
+    const updateData: Prisma.EventUpdateInput = { ...data };
 
     if (!event) {
       throw new AppError("Evento não encontrado.", 404);
@@ -52,10 +53,10 @@ class EventService {
       }
       const newAvailableTickets =
         event.availableTickets + (newTotalTickets - event.totalTickets);
-      data.availableTickets = newAvailableTickets;
-      data.totalTickets = newTotalTickets;
+      updateData.availableTickets = newAvailableTickets;
+      updateData.totalTickets = newTotalTickets;
     }
-    return await eventRepository.update(id, data);
+    return await eventRepository.update(id, updateData);
   }
 
   async delete(id: string) {
