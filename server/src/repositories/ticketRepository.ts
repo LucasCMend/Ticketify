@@ -17,3 +17,5 @@ class TicketRepository {
     return ticket;
   }
 }
+
+export default new TicketRepository();
