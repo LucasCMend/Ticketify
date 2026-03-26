@@ -2,12 +2,14 @@ import { z } from "zod";
 
 const createUserSchema = z.object({
   name: z.string().min(3),
-  email: z.string().email(),
+  email: z.string().email().toLowerCase(),
+  password: z.string().min(6),
 });
 
 const updateUserSchema = z.object({
   name: z.string().min(3).optional(),
-  email: z.string().email().optional(),
+  email: z.string().email().toLowerCase().optional(),
+  password: z.string().min(6).optional(),
 });
 
 export const userIdParamSchema = z.object({
