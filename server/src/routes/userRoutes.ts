@@ -1,18 +1,23 @@
 import { Router } from "express";
 import UserController from "../controllers/userController.js";
+import { checkAuth } from "../middleware/auth.js";
 
 const router = Router();
 
 router.post("/", UserController.create)
 
-router.put("/:id", UserController.update)
+router.post("/login", UserController.login)
 
-router.delete("/:id", UserController.delete)
+router.post("/logout", checkAuth, UserController.logout)
 
-router.post("/login", UserController.findByEmail)
+router.put("/:id", checkAuth, UserController.update)
 
-router.get("/:id", UserController.findById)
+router.delete("/:id", checkAuth, UserController.delete)
 
-router.get("/:id/tickets", UserController.findUserTickets)
+router.get("/:id", checkAuth, UserController.findById)
+
+router.get("/:id/tickets", checkAuth, UserController.findUserTickets)
+
+
 
 export default router;

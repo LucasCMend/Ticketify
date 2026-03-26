@@ -80,6 +80,18 @@ class UserService {
     const userAndTickets = await userRepository.findUserTickets(id);
     return userAndTickets;
   }
+
+  async login(email: string, password: string) {
+    const user = await this.findByEmail(email);
+
+    const passwordMatch = await bcrypt.compare(user.password, password);
+
+    if (!passwordMatch) {
+      throw new AppError("E-mail ou senha incorretos.", 401);
+    }
+
+    return user;
+  }
 }
 
 export default new UserService();

@@ -19,8 +19,8 @@ class UserController {
   }
 
   async delete(req: Request, res: Response) {
-    const {id} = req.params
-    const user = await userService.delete(id as string)
+    const { id } = req.params;
+    const user = await userService.delete(id as string);
     return res.status(200).json(user);
   }
 
@@ -40,6 +40,24 @@ class UserController {
     const { id } = req.params;
     const userAndTickets = await userService.findUserTickets(id as string);
     return res.status(200).json(userAndTickets);
+  }
+
+  async login(req: Request, res: Response) {
+    const { email, password } = req.body;
+    const user = await userService.login(email, password);
+    req.session.userId = user.id;
+    return res
+      .status(200)
+      .json({ message: "Log-in realizado com sucesso!", user });
+  }
+
+  async logout(req: Request, res: Response) {
+    req.session.destroy((err) => {
+      if (err) return res.status(500).json({ message: "Erro ao sair." });
+
+      res.clearCookie("connect.sid");
+      return res.status(200).json({ message: "Deslogado com sucesso!" });
+    });
   }
 }
 
