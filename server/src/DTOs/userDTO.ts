@@ -12,6 +12,11 @@ const updateUserSchema = z.object({
   password: z.string().min(6).optional(),
 });
 
+export const loginSchema = z.object({
+  email: z.string().email().toLowerCase(),
+  password: z.string()
+})
+
 export const userIdParamSchema = z.object({
   id: z.string().uuid("O ID fornecido não é um UUID válido."),
 });
