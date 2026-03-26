@@ -6,11 +6,11 @@ export const createUser = (data: CreateUser) => {
 };
 
 export const userLogin = (email:string, password:string) => {
-    return api.post('/login', {email, password})
+    return api.post('/users/login', {email, password})
 }
 
 export const userLogout = () => {
-    return api.post('/logout')
+    return api.post('/users/logout')
 }
 
 export const updateUser = (id: string, data: UpdateUser) => {
