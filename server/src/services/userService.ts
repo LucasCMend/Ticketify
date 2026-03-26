@@ -84,7 +84,7 @@ class UserService {
   async login(email: string, password: string) {
     const user = await this.findByEmail(email);
 
-    const passwordMatch = await bcrypt.compare(user.password, password);
+    const passwordMatch = await bcrypt.compare(password, user.password);
 
     if (!passwordMatch) {
       throw new AppError("E-mail ou senha incorretos.", 401);
