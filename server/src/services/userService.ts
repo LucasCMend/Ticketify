@@ -1,3 +1,4 @@
+import bcrypt from "bcrypt";
 import type { CreateUserDTO, UpdateUserDTO } from "../DTOs/userDTO.js";
 import { AppError } from "../errors/AppError.js";
 import userRepository from "../repositories/userRepository.js";
@@ -10,7 +11,12 @@ class UserService {
       throw new AppError("Este e-mail já está em uso.", 409);
     }
 
-    const user = await userRepository.create(data);
+    const hashedPassword = await bcrypt.hash(data.password, 10);
+
+    const user = await userRepository.create({
+      ...data,
+      password: hashedPassword,
+    });
     return user;
   }
 
@@ -35,16 +41,16 @@ class UserService {
       }
     }
 
+    if (data.password) {
+      data.password = await bcrypt.hash(data.password, 10);
+    }
+
     const updatedUser = await userRepository.update(data, id);
     return updatedUser;
   }
 
   async delete(id: string) {
     const userExists = await this.findById(id);
-
-    if (!userExists) {
-      throw new AppError("Usuário não existe", 404);
-    }
 
     const deletedUser = await userRepository.delete(id);
     return deletedUser;
@@ -69,7 +75,7 @@ class UserService {
   }
 
   async findUserTickets(id: string) {
-    const user = this.findById(id);
+    const user = await this.findById(id);
 
     const userAndTickets = await userRepository.findUserTickets(id);
     return userAndTickets;
