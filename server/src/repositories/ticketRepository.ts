@@ -12,9 +12,9 @@ class TicketRepository {
     return ticket;
   }
 
-  async findByUserId(id: string) {
-    const ticket = await prisma.ticket.findUnique({ where: { id } });
-    return ticket;
+  async findUserTickets(userId: string) {
+    const userTickets = await prisma.ticket.findMany({ where: { userId } });
+    return userTickets;
   }
 }
 
