@@ -13,11 +13,6 @@ class TicketController {
         const ticket = await ticketService.findById(id)
         return res.status(200).json(ticket)
     }
-    async findUserTickets(req:Request<{ id: string }>, res:Response) {
-        const { id: userId } = req.params;
-        const tickets = await ticketService.findUserTickets(userId)
-        return res.status(200).json(tickets)
-    }
 }
 
 export default new TicketController();

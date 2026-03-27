@@ -24,17 +24,6 @@ class TicketService {
     }
     return ticket;
   }
-
-  async findUserTickets(userId: string) {
-    const userExists = await userRepository.findById(userId)
-
-    if (!userExists) {
-      throw new AppError("Usuário não encontrado.", 404);
-    }
-
-    const tickets = await ticketRepository.findUserTickets(userId)
-    return tickets
-  }
 }
 
 export default new TicketService();
