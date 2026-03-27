@@ -1,6 +1,6 @@
 "use client"
 import { useState } from "react";
-import LoginCard from "@/app/components/LoginCard/loginCard";
+import LoginCard from "@/app/components/LoginCard";
 
 export default function Login() {
 
