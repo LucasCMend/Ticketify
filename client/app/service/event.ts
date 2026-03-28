@@ -18,5 +18,5 @@ export const findEvent = (id:string) => {
 }
 
 export const findManyEvents = () => {
-    return api.get('/events')
+    return api.get('/events?onlyUpcoming=true')
 }

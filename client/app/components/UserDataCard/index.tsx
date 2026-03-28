@@ -1,7 +1,4 @@
-"use client";
-
 import { useEffect, useState } from "react";
-import { AxiosError } from "axios";
 import { findMe } from "@/app/service/user";
 
 export default function UserDataCard() {
@@ -28,31 +25,11 @@ export default function UserDataCard() {
         const user: User = response.data;
         setEmail(user.email);
         setName(user.name);
-      } catch (error: unknown) {
-        if (error instanceof AxiosError) {
-          const status = error.response?.status;
-          const backendMessage =
-            (error.response?.data as { message?: string; error?: string })
-              ?.message ||
-            (error.response?.data as { message?: string; error?: string })
-              ?.error ||
-            "Erro ao buscar dados do perfil.";
-
-          console.error("Erro ao buscar /users/me:", {
-            status,
-            url: error.config?.url,
-            method: error.config?.method,
-            message: backendMessage,
-          });
-
-          setError(`Erro ${status ?? "desconhecido"}: ${backendMessage}`);
-        } else {
-          console.error("Sessão inválida ou expirada:", error);
-          setError("Sua sessão expirou. Por favor, faça login novamente.");
-        }
-
+      } catch (error) {
+        console.error("Sessão inválida ou expirada:", error);
         setName("");
         setEmail("");
+        setError("Sua sessão expirou. Por favor, faça login novamente.");
       } finally {
         setIsLoading(false);
       }
@@ -60,16 +37,11 @@ export default function UserDataCard() {
     fetchUserData();
   }, []);
 
+
   return (
     <div className="max-w-xl mx-auto bg-white rounded-2xl shadow-md p-8">
       {/* Título */}
       <h1 className="text-2xl font-semibold text-slate-800 mb-6">Meu Perfil</h1>
-
-      {error && (
-        <p className="mb-4 rounded-lg bg-red-50 p-3 text-sm text-red-700">
-          {error}
-        </p>
-      )}
 
       {/* Nome */}
       <div className="mb-4">
