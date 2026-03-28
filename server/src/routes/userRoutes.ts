@@ -10,6 +10,8 @@ router.post("/login", UserController.login)
 
 router.post("/logout", checkAuth, UserController.logout)
 
+router.get("/me", checkAuth, UserController.findMe)
+
 router.put("/:id", checkAuth, UserController.update)
 
 router.delete("/:id", checkAuth, UserController.delete)

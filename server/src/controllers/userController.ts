@@ -59,6 +59,17 @@ class UserController {
       return res.status(200).json({ message: "Deslogado com sucesso!" });
     });
   }
+
+  async findMe(req: Request, res: Response) {
+    const { id } = req.session;
+
+    if (!id) {
+      return res.status(401).json({ message: "Usuário não autenticado" });
+    }
+
+    const user = await userService.findById(id);
+    return res.status(200).json(user);
+  }
 }
 
 export default new UserController();
