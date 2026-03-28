@@ -61,13 +61,13 @@ class UserController {
   }
 
   async findMe(req: Request, res: Response) {
-    const { id } = req.session;
+    const { userId } = req.session;
 
-    if (!id) {
+    if (!userId) {
       return res.status(401).json({ message: "Usuário não autenticado" });
     }
 
-    const user = await userService.findById(id);
+    const user = await userService.findById(userId);
     return res.status(200).json(user);
   }
 }

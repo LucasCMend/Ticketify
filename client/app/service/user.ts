@@ -5,26 +5,30 @@ export const createUser = (data: CreateUser) => {
   return api.post("/users", data);
 };
 
-export const userLogin = (email:string, password:string) => {
-    return api.post('/users/login', {email, password})
-}
+export const userLogin = (email: string, password: string) => {
+  return api.post("/users/login", { email, password });
+};
 
 export const userLogout = () => {
-    return api.post('/users/logout')
-}
+  return api.post("/users/logout");
+};
 
 export const updateUser = (id: string, data: UpdateUser) => {
-  return api.put(`/users/${id}`, data); 
+  return api.put(`/users/${id}`, data);
 };
 
 export const deleteUser = (id: string) => {
   return api.delete(`/users/${id}`);
 };
 
-export const findUserById = (id:string) => {
-    return api.get(`/users/${id}`)
-}
+export const findUserById = (id: string) => {
+  return api.get(`/users/${id}`);
+};
 
-export const findUserTickets = (id:string) => {
-    return api.get(`/users/${id}/tickets`)
-}
+export const findUserTickets = (id: string) => {
+  return api.get(`/users/${id}/tickets`);
+};
+
+export const findMe = () => {
+  return api.get("/users/me");
+};
