@@ -1,11 +1,14 @@
 import { userLogin } from "@/app/service/user";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function LoginCard() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,7 +23,7 @@ export default function LoginCard() {
       setLoading(true);
       const response = await userLogin(email, password);
       console.log("Login realizado com sucesso!", response.data);
-      return alert("Login realizado!");
+      router.push("/home");
     } catch (error) {
       console.error("Erro no login:", error);
       setError("E-mail ou senha inválidos. Tente novamente.");
