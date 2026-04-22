@@ -24,6 +24,7 @@ model Event {
   name             String
   description      String
   date             DateTime
+  price            Int
   totalTickets     Int
   availableTickets Int
   createdAt        DateTime @default(now())
