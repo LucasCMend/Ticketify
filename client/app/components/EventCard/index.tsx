@@ -6,6 +6,7 @@ interface EventCardProps {
 }
 
 export default function EventCard({ event }: EventCardProps) {
+
   return (
     <div className="bg-white border-2 border-slate-200 rounded-xl p-5 shadow-md hover:shadow-xl hover:border-blue-900 transition-all duration-300 flex flex-col gap-4 h-full">
       <div>
@@ -31,7 +32,7 @@ export default function EventCard({ event }: EventCardProps) {
           </div>
         </div>
         <Link
-          href={`/evento/${event.name}`}
+          href={`/eventPage/${event.id}`}
           className="w-full bg-blue-900 hover:bg-blue-800 text-white text-center py-2.5 rounded-lg font-semibold transition-colors duration-300"
         >
           Acessar Página do Evento

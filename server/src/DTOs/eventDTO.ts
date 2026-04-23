@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const createEventDTO = z.object({
+export const createEventDTO = z.object({
   name: z.string().min(1, { message: "O nome do evento é obrigatório." }),
   description: z
     .string()
@@ -11,9 +11,15 @@ const createEventDTO = z.object({
   totalTickets: z.number().int().positive({
     message: "O total de ingressos deve ser um número inteiro positivo.",
   }),
+  price: z
+    .number()
+    .int()
+    .nonnegative({
+      message: "O valor do ingresso deve ser um número inteiro positivo.",
+    }),
 });
 
-const updateEventDTO = z.object({
+export const updateEventDTO = z.object({
   name: z.string().min(1).optional(),
   description: z.string().min(1).optional(),
   date: z
@@ -29,6 +35,12 @@ const updateEventDTO = z.object({
       message: "O total de ingressos deve ser um número inteiro positivo.",
     })
     .optional(),
+    price: z
+    .number()
+    .int()
+    .nonnegative({
+      message: "O valor do ingresso deve ser um número inteiro positivo.",
+    }).optional(),
 });
 
 export type CreateEventDTO = z.infer<typeof createEventDTO>;
